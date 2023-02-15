@@ -1,11 +1,11 @@
 import pickle
 
 
-def db_info_save(host: str, port: int, user: str, password: str, db: str):
+def save_db_info(host: str, port: int, user: str, password: str, db: str):
     with open('./resource/db.pickle', 'wb') as save:
         pickle.dump([host, port, user, password, db], save)
 
 
-def db_info_load():
+def load_db_info():
     with open('./resource/db.pickle', 'rb') as load:
         return pickle.load(load)

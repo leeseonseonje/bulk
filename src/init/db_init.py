@@ -1,12 +1,16 @@
 import typer
+import pymysql
+from src.repository.pickle_db_info_repository import save_db_info
 
-from src.repository.pickle_db_info_repository import db_info_save
+
+def mysql(db_name: str):
+    init()
 
 
-def mysql():
+def init(db_name: str):
     host = typer.prompt("host")
     port = typer.prompt("port")
     user = typer.prompt("user")
     password = typer.prompt("password")
     db = typer.prompt("db")
-    db_info_save(host, port, user, password, db)
+    save_db_info(db_name, host, port, user, password, db)
