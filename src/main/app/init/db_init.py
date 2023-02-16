@@ -1,9 +1,8 @@
 import typer
 import pymysql
 
-from rich.prompt import Prompt
-from src.init.typer_prompt import host_port_user_password_db
-from src.repository.pickle_db_info_repository import save_db_info
+from src.main.app.util.typer_prompt import host_port_user_password_db
+from src.main.app.repository.pickle_db_info_repository import save_db_info
 
 
 class InitDB:
