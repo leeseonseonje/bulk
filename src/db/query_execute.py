@@ -1,4 +1,4 @@
-from src.repository.pickle_db_info_repository import load_db_info, load_connection
+from src.repository.pickle_db_info_repository import load_db_info
 import pymysql
 
 
