@@ -1,18 +1,17 @@
-from src.repository.pickle_db_info_repository import load_db_info
-import pymysql
+import pymysql as pymysql
+
+from src.main.app.init.db_connection import get_connection
 
 
-def execute():
-    con = load_connection()
+def execute(query: str):
+    con = get_connection()
 
     cursor = con.cursor()
 
-    query = "insert into test (col1, col2) values (1, 'python_test'), (2, 'test');"
-    count = cursor.execute(query)
-    print(f"{count} rows insert")
-    con.commit()
-
-    query = "insert into test (col1, col2) values (1, 'python_test'), (2, 'test');"
-    count = cursor.execute(query)
-    print(f"{count} rows insert")
-    con.commit()
+    try:
+        result = cursor.execute(query)
+        con.commit()
+        print(f'{cursor.fetchall()}')
+    except:
+        con.rollback()
+        print('rollback')

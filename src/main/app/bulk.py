@@ -3,6 +3,7 @@ import sys
 sys.path.insert(0, '../../../')
 from src.main.app.init.db_init import InitDB
 from src.main.app.repository.pickle_db_info_repository import load_db_info
+from src.main.app.db.query_execute import execute
 import typer
 
 app = typer.Typer()
@@ -17,3 +18,9 @@ def init(db_name: str = typer.Argument('mysql')):
 @app.command()
 def load():
     typer.echo(load_db_info())
+
+
+@app.command()
+def query(sql: str):
+    execute(sql)
+

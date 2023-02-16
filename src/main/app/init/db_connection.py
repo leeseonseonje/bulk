@@ -22,6 +22,9 @@ class ConnectDB:
 
 
 def get_connection():
-    db_name, host, port, user, password, db = load_db_info()
-    connect_db = ConnectDB(host, port, user, password, db)
-    getattr(connect_db, db_name)
+    try:
+        db_name, host, port, user, password, db = load_db_info()
+        connect_db = ConnectDB(host, port, user, password, db)
+        return getattr(connect_db, db_name)()
+    except:
+        print(f'connect failed')

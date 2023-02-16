@@ -9,5 +9,3 @@ def host_port_user_password_db():
     db = typer.prompt("db")
     return host, port, user, password, db
 
-
-
