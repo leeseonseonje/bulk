@@ -1,9 +1,8 @@
 import sys
-
 sys.path.insert(0, '../../../')
 from src.main.app.init.db_init import InitDB
 from src.main.app.repository.pickle_db_info_repository import load_db_info
-from src.main.app.db.query_execute import execute
+from src.main.app.db.query_execute import __sql__
 import typer
 
 app = typer.Typer()
@@ -21,6 +20,6 @@ def load():
 
 
 @app.command()
-def query(sql: str):
-    execute(sql)
+def sql(query: str):
+    __sql__(query)
 

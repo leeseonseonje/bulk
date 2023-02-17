@@ -1,6 +1,7 @@
 import pymysql
 
 from src.main.app.repository.pickle_db_info_repository import load_db_info
+from src.main.app.util.template.try_except_context import context
 
 
 class ConnectDB:
@@ -21,10 +22,11 @@ class ConnectDB:
                                charset='utf8')
 
 
+def get():
+    db_name, host, port, user, password, db = load_db_info()
+    connect_db = ConnectDB(host, port, user, password, db)
+    return getattr(connect_db, db_name)()
+
+
 def get_connection():
-    try:
-        db_name, host, port, user, password, db = load_db_info()
-        connect_db = ConnectDB(host, port, user, password, db)
-        return getattr(connect_db, db_name)()
-    except:
-        print(f'connect failed')
+    return context(get, 'connect failed')

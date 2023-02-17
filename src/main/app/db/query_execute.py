@@ -1,17 +1,18 @@
-import pymysql as pymysql
-
 from src.main.app.init.db_connection import get_connection
 
 
-def execute(query: str):
-    con = get_connection()
+def __sql__(query: str):
+    conn = get_connection()
 
-    cursor = con.cursor()
+    cursor = conn.cursor()
 
     try:
-        result = cursor.execute(query)
-        con.commit()
-        print(f'{cursor.fetchall()}')
+        count = cursor.execute(query)
+        conn.commit()
+        records = cursor.fetchall()
+        print(f'{count}')
+        if records:
+            print(f'{records}')
     except:
-        con.rollback()
+        conn.rollback()
         print('rollback')
