@@ -10,9 +10,14 @@ def __sql__(query: str):
         count = cursor.execute(query)
         conn.commit()
         records = cursor.fetchall()
-        print(f'{count}')
+        print(f'count: {count}')
         if records:
-            print(f'{records}')
+            print('records::')
+            for descr in cursor.description:
+                print(f'{descr[0]},', end=' ')
+            print()
+            for r in records:
+                print(f'{r}')
     except:
         conn.rollback()
         print('rollback')
