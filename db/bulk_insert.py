@@ -1,10 +1,9 @@
-import datetime
-
 from src.main.app.init.db_connection import get_connection
-import random
+
+from src.main.app.util.random.random_generator import *
+
 
 def bulk_insert(table: str, row: int):
-
     conn = get_connection()
 
     cursor = conn.cursor()
@@ -23,22 +22,23 @@ def bulk_insert(table: str, row: int):
         query.append(f'{", ".join(columns)}) values ')
         for i in range(row):
             for record in records:
+                n = i + 1
                 if not record[5]:
                     if record[1] == 'int' or record[1] == 'bigint':
-                        r = random.randrange(1, 1000)
+                        r = random_integer(n)
                         data.append(str(r))
                     if record[1] == 'varchar(256)':
-                        r = random.randrange(1, 1000)
-                        data.append(str(r))
+                        r = random_string(256, n)
+                        data.append(f"'{str(r)}'")
                     if record[1] == 'date':
-                        now = datetime.datetime.now()
-                        data.append(f"'{str(now)}'")
+                        r = random_date()
+                        data.append(f"'{str(r)}'")
             datas.append(f'({", ".join(data)})')
             data.clear()
         query.append(f'{", ".join(datas)}')
         count = cursor.execute(''.join(query))
         conn.commit()
-        print(count)
+        print(f'insert rows: {count}')
     except:
         conn.rollback()
         print('rollback')
