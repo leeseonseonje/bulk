@@ -1,9 +1,10 @@
 import sys
+
 sys.path.insert(0, '../../../')
 from src.main.app.init.db_init import InitDB
-from src.main.app.repository.pickle_db_info_repository import load_db_info
+from src.main.app.repository.pickle_db_info_repository import load_db_info, load_db_name
 from src.main.app.db.query_execute import __sql__
-from src.main.app.db.bulk_insert import bulk_insert
+from src.main.app.db.bulk_insert import BulkInsert
 import typer
 
 app = typer.Typer()
@@ -30,6 +31,7 @@ def sql(query: str):
 
 @app.command()
 def bulk(table: str, row: int = typer.Option(1)):
-    bulk_insert(table, row)
+    insert = BulkInsert(table, row)
+    getattr(insert, load_db_name())()
 
 

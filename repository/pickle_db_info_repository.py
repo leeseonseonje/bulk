@@ -9,3 +9,8 @@ def save_db_info(db_name: str, host: str, port: int, user: str, password: str, d
 def load_db_info():
     with open('../resource/db.pickle', 'rb') as load:
         return pickle.load(load)
+
+
+def load_db_name():
+    with open('../resource/db.pickle', 'rb') as load:
+        return pickle.load(load)[0]

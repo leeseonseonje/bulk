@@ -74,6 +74,12 @@ def random_date():
                              second=random.randrange(0, 60))
 
 
+def random_time():
+    return datetime.datetime(hour=random.randrange(0, 23),
+                             minute=random.randrange(0, 60),
+                             second=random.randrange(0, 60))
+
+
 def random_boolean():
     return random.randrange(0, 1)
 
