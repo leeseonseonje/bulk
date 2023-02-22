@@ -84,11 +84,3 @@ def random_boolean():
     return random.randrange(0, 1)
 
 
-# n = 1000000
-# s = set()
-# for i in range(0, n):
-#     s.add(random_string(256, i + 1))
-    # s.add(random_integer(i + 1))
-#
-# print(len(integer_set))
-# print(len(s))
