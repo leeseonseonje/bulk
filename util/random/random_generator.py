@@ -54,8 +54,8 @@ def random_string(length, n):
 
 def get_random_string(length):
     random_str = []
-    if length > 5:
-        length = 5
+    if length > 20:
+        length = 20
     base_string = '1234567890qwertyuiopasdfghjklzxcvbnm'
     for i in range(0, length):
         choice = random.choice(base_string)
