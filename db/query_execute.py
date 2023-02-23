@@ -11,12 +11,7 @@ def __sql__(query: str):
         conn.commit()
         records = cursor.fetchall()
         print(f'count: {count}')
-        print(cursor.description)
         if records:
-            print('records::')
-            for descr in cursor.description:
-                print(f'{descr[0]},', end=' ')
-            print()
             for r in records:
                 print(f'{r}')
     except:

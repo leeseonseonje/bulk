@@ -1,6 +1,8 @@
+import os
 import sys
+from pathlib import Path
 
-sys.path.insert(0, '../../../')
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 from src.main.app.init.db_init import InitDB
 from src.main.app.repository.pickle_db_info_repository import load_db_info, load_db_name
 from src.main.app.db.query_execute import __sql__
