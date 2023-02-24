@@ -28,6 +28,7 @@ class ConnectDB:
                                 password=self.password,
                                 dbname=self.db)
 
+
 def get_connection():
     db_name, host, port, user, password, db = load_db_info()
     connect_db = ConnectDB(host, port, user, password, db)

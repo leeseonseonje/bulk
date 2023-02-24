@@ -1,4 +1,4 @@
-from src.main.app.db.db_data_type import *
+from src.main.app.db.bulk.db_data_type import *
 from src.main.app.init.db_connection import get_connection
 
 
@@ -16,8 +16,8 @@ def bulk_insert_mysql(table: str, row: int):
         for i in range(row):
             for column in columns:
                 data_type = column[1]
-                if is_not_primary_key(column[5]):
-                    type_checking_and_value_generate(data, data_type, i + 1)
+                if is_not_primary_key(column[3]):
+                    DataType.type_checking_and_value_generate(data_type, data, i + 1)
 
             query_assembly(data, record)
         query.append(f'{", ".join(record)}')
@@ -27,6 +27,8 @@ def bulk_insert_mysql(table: str, row: int):
     except:
         conn.rollback()
         print('rollback')
+    finally:
+        conn.close()
 
 
 def declare_insert_query(cursor, query, table):

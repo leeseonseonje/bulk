@@ -17,3 +17,5 @@ def __sql__(query: str):
     except:
         conn.rollback()
         print('rollback')
+    finally:
+        conn.close()
