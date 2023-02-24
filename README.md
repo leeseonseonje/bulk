@@ -3,9 +3,9 @@
 # bulk insert tool Commands
 
 ## 1. db init
-  - typer bulk.py run init
+  - typer bulk.py run init dbname(default mysql)
 ```
->>> typer bulk.py run init
+>>> typer bulk.py run init mysql
 host: localhost
 port: 3306
 user: root
