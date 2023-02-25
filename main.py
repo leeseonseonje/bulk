@@ -38,3 +38,7 @@ def bulk(table: str, row: int = typer.Option(1), rm: bool = typer.Option(False))
         delete_table(table)
     insert = BulkInsert(table, row)
     getattr(insert, load_db_name())()
+
+
+if __name__ == "__main__":
+    app()
