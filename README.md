@@ -65,6 +65,6 @@ insert rows: 10000
 
 Supported DB: mysql, mariadb __(preparing postgresql)__
 
-auto_increment: pk only supports auto_increment.
+pk: pk only supports auto_increment.
 
 Unique: Uniqueness is guaranteed only for the rows specified in the --row option. __(Only integer and varchar support unique)__
