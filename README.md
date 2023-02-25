@@ -3,9 +3,9 @@
 # bulk insert tool Commands
 
 ## 1. db init
-  - typer main.py run init dbname(default mysql)
+  - python main.py init dbname(default mysql)
 ```
->>> typer main.py run init mysql
+>>> python main.py init mysql
 host: localhost
 port: 3306
 user: root
@@ -19,14 +19,14 @@ connect success!!
 ```
 
 ## 2. db connection load
-  - typer main.py run load
+  - python main.py load
  ```
- >>> typer main.py run load
+ >>> python main.py load
  ['mysql', 'localhost', '3306', 'root', 'root', 'cli_test']
  ```
  
 ## 3. sql
-  - typer main.py run sql 'sql'
+  - python main.py sql 'sql'
 ```
 >>> typer main.py run sql 'select * from test'
 (1439415, 668448884, 'lmhlx5inay84e5w87lxe', datetime.date(7846, 5, 28))
@@ -37,27 +37,27 @@ connect success!!
 ```
 
 ## 4. bulk insert
-  - typer main.py run bulk 'table' --row 'insert row (default 1)'
+  - python main.py bulk 'table' --row 'insert row (default 1)'
 ```
->>> typer main.py run bulk test --row 10000
+>>> python main.py bulk test --row 10000
 insert rows: 10000
 ```
 
 ### 4-1. bulk insert --rm option
-  - typer main.py run bulk 'table' --row 'insert row' --rm
+  - python main.py bulk 'table' --row 'insert row' --rm
 ```
->>> typer main.py run bulk test --row 10000 --rm
+>>> python main.py bulk test --row 10000 --rm
 delete rows: 10000
 insert rows: 10000
 ```
 
 # bulk-insert records check
 ```
->>> typer main.py run bulk test --row 10000 --rm
+>>> python main.py bulk test --row 10000 --rm
 delete rows: 10000
 insert rows: 10000
 
->>> typer main.py run sql 'select * from test limit 5'
+>>> python main.py sql 'select * from test limit 5'
 ```
 <img width="599" alt="스크린샷 2023-02-23 오전 3 10 55" src="https://user-images.githubusercontent.com/72899707/220718366-e8d10320-b903-40a4-966e-be2ba86d5e0b.png">
 
