@@ -16,7 +16,7 @@ def bulk_insert_mysql(table: str, row: int):
         for i in range(row):
             for column in columns:
                 data_type = column[1]
-                if is_not_primary_key(column[3]):
+                if is_not_auto_increment(column[5]):
                     DataType.type_checking_and_value_generate(data_type, data, i + 1)
 
             query_assembly(data, record)
@@ -37,13 +37,13 @@ def declare_insert_query(cursor, query, table):
     cursor.execute('desc ' + table)
     columns_info = cursor.fetchall()
     for column in columns_info:
-        if is_not_primary_key(column[5]):
+        if is_not_auto_increment(column[5]):
             columns.append(column[0])
     query.append(f'{", ".join(columns)}) values ')
     return columns_info
 
 
-def is_not_primary_key(column):
+def is_not_auto_increment(column):
     if not column:
         return True
     else:
