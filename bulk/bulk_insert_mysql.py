@@ -1,13 +1,16 @@
-from src.main.app.db.bulk.db_data_type import *
+import time
+
+from src.main.app.bulk.db_data_type import *
 from src.main.app.init.db_connection import get_connection
 
 
-def bulk_insert_mysql(table: str, row: int):
+def bulk_insert_mysql(table, row, is_unique):
     conn = get_connection()
 
     cursor = conn.cursor()
 
     try:
+        start = time.time()
         query = []
         data = []
         record = []
@@ -17,13 +20,15 @@ def bulk_insert_mysql(table: str, row: int):
             for column in columns:
                 data_type = column[1]
                 if is_not_auto_increment(column[5]):
-                    DataType.type_checking_and_value_generate(data_type, data, i + 1)
+                    DataType.type_checking_and_value_generate(data_type, data, i + 1, is_unique)
 
             query_assembly(data, record)
         query.append(f'{", ".join(record)}')
         count = cursor.execute(''.join(query))
         conn.commit()
         print(f'insert rows: {count}')
+        end = time.time() - start
+        print(end)
     except:
         conn.rollback()
         print('rollback')
