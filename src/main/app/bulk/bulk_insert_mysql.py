@@ -5,7 +5,7 @@ from src.main.app.bulk.db_data_type import *
 from src.main.app.init.db_connection import get_connection
 
 
-def bulk_insert_mysql(table, row, is_unique):
+def bulk_insert_mysql(table, row, is_random):
     start = time.time()
     divide = 10000
     if row > divide:
@@ -14,17 +14,17 @@ def bulk_insert_mysql(table, row, is_unique):
 
         executor = ThreadPoolExecutor(10)
         for i in range(int(loop)):
-            executor.submit(bulk_insert_execute, table, divide, is_unique)
+            executor.submit(bulk_insert_execute, table, divide, is_random)
         if remaining:
-            bulk_insert_execute(table, remaining, is_unique)
+            bulk_insert_execute(table, remaining, is_random)
         executor.shutdown(wait=True)
         end = time.time() - start
         print(datetime.timedelta(seconds=end))
     else:
-        bulk_insert_execute(table, row, is_unique)
+        bulk_insert_execute(table, row, is_random)
 
 
-def bulk_insert_execute(table, row, is_unique):
+def bulk_insert_execute(table, row, is_random):
     conn = get_connection()
 
     cursor = conn.cursor()
@@ -39,8 +39,8 @@ def bulk_insert_execute(table, row, is_unique):
             for column in columns:
                 data_type = column[1]
                 if is_not_auto_increment(column[5]):
-                    print(is_unique)
-                    DataType.type_checking_and_value_generate(data_type, data, i + 1, is_unique)
+                    print(is_random)
+                    DataType.type_checking_and_value_generate(data_type, data, is_random)
 
             query_assembly(data, record)
         query.append(f'{", ".join(record)}')

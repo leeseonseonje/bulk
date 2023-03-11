@@ -2,8 +2,8 @@ import datetime
 import random
 
 
-def get_integer(n, is_unique):
-    if is_unique:
+def get_integer(is_random):
+    if is_random:
         return get_random_integer()
     else:
         return 1
@@ -13,8 +13,8 @@ def get_random_integer():
     return random.randrange(0, 2140000000)
 
 
-def random_real_number(data_type: str, is_unique):
-    if is_unique:
+def random_real_number(data_type: str, is_random):
+    if is_random:
         try:
             return decimal_type(data_type)
         except:
@@ -35,8 +35,8 @@ def decimal_type(data_type):
     return round(real_number, scale)
 
 
-def get_string(length, n, is_unique):
-    if is_unique:
+def get_string(length, is_random):
+    if is_random:
         return get_random_string(length)
     else:
         return 'a'
@@ -55,8 +55,8 @@ def get_random_string(length):
     return result
 
 
-def get_date(is_unique):
-    if is_unique:
+def get_date(is_random):
+    if is_random:
         return datetime.datetime(year=random.randrange(1, 10000),
                                  month=random.randrange(1, 13),
                                  day=random.randrange(1, 29),
@@ -67,8 +67,8 @@ def get_date(is_unique):
         return datetime.datetime(year=9999, month=12, day=1, hour=12, minute=10, second=10)
 
 
-def get_time(is_unique):
-    if is_unique:
+def get_time(is_random):
+    if is_random:
         return datetime.datetime(hour=random.randrange(0, 23),
                                  minute=random.randrange(0, 60),
                                  second=random.randrange(0, 60))

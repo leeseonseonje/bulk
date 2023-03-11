@@ -12,19 +12,19 @@ class DataType(Enum):
     BOOLEAN = ('tinyint', 'boolean', 'bit')
 
     @staticmethod
-    def type_checking_and_value_generate(data_type, data, n, is_unique):
+    def type_checking_and_value_generate(data_type, data, is_random):
         if get_data_type(data_type) in DataType.INTEGER.value:
-            data.append(str(get_integer(n, is_unique)))
+            data.append(str(get_integer(is_random)))
         elif get_data_type(data_type) in DataType.REAL_NUMBER.value:
             length = get_length(data_type)
-            data.append(f"'{str(get_string(length, n, is_unique))}'")
+            data.append(f"'{str(get_string(length, is_random))}'")
         elif get_data_type(data_type) in DataType.STRING.value:
             length = get_length(data_type)
-            data.append(f"'{str(get_string(length, n, is_unique))}'")
+            data.append(f"'{str(get_string(length, is_random))}'")
         elif get_data_type(data_type) in DataType.DATE.value:
-            data.append(f"'{str(get_date(is_unique))}'")
+            data.append(f"'{str(get_date(is_random))}'")
         elif get_data_type(data_type) in DataType.TIME.value:
-            data.append(f"'{str(get_time(is_unique))}'")
+            data.append(f"'{str(get_time(is_random))}'")
         elif get_data_type(data_type) in DataType.BOOLEAN.value:
             data.append(f"'{str(get_boolean())}'")
 
