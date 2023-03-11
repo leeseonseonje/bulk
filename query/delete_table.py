@@ -1,4 +1,5 @@
 from src.main.app.init.db_connection import get_connection
+from concurrent.futures import ThreadPoolExecutor
 
 
 def delete_table(table: str):
@@ -7,6 +8,7 @@ def delete_table(table: str):
     cursor = conn.cursor()
 
     try:
+        executor = ThreadPoolExecutor(10)
         count = cursor.execute('delete from ' + table)
 
         conn.commit()

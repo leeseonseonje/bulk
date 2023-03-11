@@ -6,7 +6,8 @@ from src.main.app.init.db_connection import get_connection
 
 
 def bulk_insert_mysql(table, row, is_unique):
-    divide = 1000
+    start = time.time()
+    divide = 10000
     if row > divide:
         loop = row / divide
         remaining = row % divide
@@ -16,6 +17,9 @@ def bulk_insert_mysql(table, row, is_unique):
             executor.submit(bulk_insert_execute, table, divide, is_unique)
         if remaining:
             bulk_insert_execute(table, remaining, is_unique)
+        executor.shutdown(wait=True)
+        end = time.time() - start
+        print(datetime.timedelta(seconds=end))
     else:
         bulk_insert_execute(table, row, is_unique)
 
@@ -26,7 +30,6 @@ def bulk_insert_execute(table, row, is_unique):
     cursor = conn.cursor()
 
     try:
-        start = time.time()
         query = []
         data = []
         record = []
@@ -42,9 +45,6 @@ def bulk_insert_execute(table, row, is_unique):
         query.append(f'{", ".join(record)}')
         count = cursor.execute(''.join(query))
         conn.commit()
-        print(f'insert rows: {count}')
-        end = time.time() - start
-        print(end)
     except:
         conn.rollback()
         print('rollback')
