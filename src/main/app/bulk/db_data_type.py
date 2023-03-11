@@ -12,21 +12,20 @@ class DataType(Enum):
     BOOLEAN = ('tinyint', 'boolean', 'bit')
 
     @staticmethod
-    def type_checking_and_value_generate(data_type, data, is_random):
+    def type_checking_and_value_generate(data_type, is_random):
         if get_data_type(data_type) in DataType.INTEGER.value:
-            data.append(str(get_integer(is_random)))
+            return get_integer(is_random)
         elif get_data_type(data_type) in DataType.REAL_NUMBER.value:
-            length = get_length(data_type)
-            data.append(f"'{str(get_string(length, is_random))}'")
+            return get_real_number(data_type, is_random)
         elif get_data_type(data_type) in DataType.STRING.value:
             length = get_length(data_type)
-            data.append(f"'{str(get_string(length, is_random))}'")
+            return get_string(length, is_random)
         elif get_data_type(data_type) in DataType.DATE.value:
-            data.append(f"'{str(get_date(is_random))}'")
+            return get_date(is_random)
         elif get_data_type(data_type) in DataType.TIME.value:
-            data.append(f"'{str(get_time(is_random))}'")
+            return get_time(is_random)
         elif get_data_type(data_type) in DataType.BOOLEAN.value:
-            data.append(f"'{str(get_boolean())}'")
+            return get_boolean()
 
 
 def get_data_type(data_type):
@@ -37,5 +36,3 @@ def get_length(data_type):
     split = str(data_type).split('(')
     length = split[1].split(')')
     return int(length[0])
-
-

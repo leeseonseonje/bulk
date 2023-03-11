@@ -13,14 +13,14 @@ def get_random_integer():
     return random.randrange(0, 2140000000)
 
 
-def random_real_number(data_type: str, is_random):
+def get_real_number(data_type, is_random):
     if is_random:
         try:
             return decimal_type(data_type)
         except:
             return random.uniform(0, 999)
     else:
-        return 1
+        return 0.1
 
 
 def decimal_type(data_type):
@@ -69,12 +69,12 @@ def get_date(is_random):
 
 def get_time(is_random):
     if is_random:
-        return datetime.datetime(hour=random.randrange(0, 23),
+        return datetime.time(hour=random.randrange(0, 23),
                                  minute=random.randrange(0, 60),
                                  second=random.randrange(0, 60))
     else:
-        return datetime.datetime(hour=12, minute=10, second=10)
+        return datetime.time(hour=12, minute=10, second=10)
 
 
 def get_boolean():
-    return random.randrange(0, 1)
+    return random.randrange(0, 2)

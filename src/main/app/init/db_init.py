@@ -1,4 +1,3 @@
-import typer
 import pymysql
 import psycopg2
 
