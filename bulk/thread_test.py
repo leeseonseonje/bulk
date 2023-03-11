@@ -1,10 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor
 
 
-def task(m):
-    print(m)
+def task(m, n):
+    print(f'm = ${m}m')
+    print(f'n = ${n}m')
 
 
-# if __name__ == '_main_':
 executor = ThreadPoolExecutor(4)
-executor.map(task, 5)
+args = ((1, 2), (3, 4))
+executor.map(task, [1], [3])

@@ -1,10 +1,26 @@
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from src.main.app.bulk.db_data_type import *
 from src.main.app.init.db_connection import get_connection
 
 
 def bulk_insert_mysql(table, row, is_unique):
+    divide = 1000
+    if row > divide:
+        loop = row / divide
+        remaining = row % divide
+
+        executor = ThreadPoolExecutor(10)
+        for i in range(int(loop)):
+            executor.submit(bulk_insert_execute, table, divide, is_unique)
+        if remaining:
+            bulk_insert_execute(table, remaining, is_unique)
+    else:
+        bulk_insert_execute(table, row, is_unique)
+
+
+def bulk_insert_execute(table, row, is_unique):
     conn = get_connection()
 
     cursor = conn.cursor()
