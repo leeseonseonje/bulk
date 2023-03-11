@@ -39,7 +39,6 @@ def bulk_insert_execute(table, row, is_random):
             for column in columns:
                 data_type = column[1]
                 if is_not_auto_increment(column[5]):
-                    print(is_random)
                     DataType.type_checking_and_value_generate(data_type, data, is_random)
 
             query_assembly(data, record)
