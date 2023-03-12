@@ -1,13 +1,15 @@
 import typer
 
+from src.main.app.init.db_connection_dto import DBConnectionDto
 
-def host_port_user_password_db():
+
+def host_port_user_password_db(dbms):
     host = typer.prompt('host')
     port = typer.prompt('port')
     user = typer.prompt('user')
     password = typer.prompt('password')
     db = typer.prompt('db')
-    return host, port, user, password, db
+    return DBConnectionDto(dbms, host, port, user, password, db)
 
 
 def entered_db_information(host='', port='', db='', user='', password=''):

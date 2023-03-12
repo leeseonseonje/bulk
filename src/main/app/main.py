@@ -3,8 +3,9 @@ from pathlib import Path
 
 
 sys.path.append(str(Path(__file__).parent.parent.parent.parent))
-from src.main.app.init.db_init import InitDB
-from src.main.app.repository.pickle_db_info_repository import load_db_info, load_db_name
+from src.main.app.init.db_connection_dto import DBConnectionDto
+from src.main.app.init.db_init import db_init
+from src.main.app.repository.pickle_db_info_repository import load_db_info
 from src.main.app.query.query_execute import __sql__
 from src.main.app.bulk.bulk_insert import BulkInsert
 from src.main.app.query.delete_table import delete_table
@@ -14,17 +15,17 @@ app = typer.Typer()
 
 
 @app.command()
-def init(db_name: str = typer.Argument('mysql')):
-    try:
-        init_db = InitDB(db_name.lower())
-        getattr(init_db, init_db.name)()
-    except:
-        print(f'{db_name.lower()} is not db')
+def init(dbms: str = typer.Argument('mysql')):
+    db_init(dbms)
 
 
 @app.command()
 def load():
-    print(load_db_info())
+    db_info: DBConnectionDto = load_db_info()
+    print(f'dbms: {db_info.dbms}')
+    print(f'host/port: {db_info.host}/{db_info.port}')
+    print(f'user/password: {db_info.user}/{db_info.password}')
+    print(f'db: {db_info.db}')
 
 
 @app.command()
@@ -40,7 +41,7 @@ def bulk(table: str,
     if rm:
         delete_table(table)
     insert = BulkInsert(table, row, ran)
-    getattr(insert, load_db_name())()
+    getattr(insert, load_db_info().dbms)()
 
 
 if __name__ == "__main__":

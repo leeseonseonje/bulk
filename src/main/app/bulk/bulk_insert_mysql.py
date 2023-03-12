@@ -6,6 +6,7 @@ from src.main.app.init.db_connection import get_connection
 
 
 def bulk_insert_mysql(table, row, is_random):
+    conn = get_connection()
     start = time.time()
     divide = 10000
     if row > divide:
@@ -18,8 +19,9 @@ def bulk_insert_mysql(table, row, is_random):
         if remaining:
             bulk_insert_execute(table, remaining, is_random)
         executor.shutdown(wait=True)
+
         end = time.time() - start
-        print(datetime.timedelta(seconds=end))
+        print(f'working time: {datetime.timedelta(seconds=end)}')
     else:
         bulk_insert_execute(table, row, is_random)
 

@@ -1,10 +1,13 @@
+import sys
+
 import pymysql
 import psycopg2
 
 from src.main.app.repository.pickle_db_info_repository import load_db_info
+from src.main.app.init.db_connection_dto import DBConnectionDto
 
 
-class ConnectDB:
+class DBConnection:
 
     def __init__(self, host, port, user, password, db):
         self.host = host
@@ -30,6 +33,10 @@ class ConnectDB:
 
 
 def get_connection():
-    db_name, host, port, user, password, db = load_db_info()
-    connect_db = ConnectDB(host, port, user, password, db)
-    return getattr(connect_db, db_name)()
+    try:
+        db_info: DBConnectionDto = load_db_info()
+        connect_db = DBConnection(db_info.host, db_info.port, db_info.user, db_info.password, db_info.db)
+        return getattr(connect_db, db_info.dbms)()
+    except:
+        print('connect failed!!')
+        sys.exit(1)
