@@ -6,7 +6,6 @@ from src.main.app.init.db_connection import get_connection
 
 
 def bulk_insert_mysql(table, row, is_random):
-    conn = get_connection()
     start = time.time()
     divide = 10000
     if row > divide:
@@ -46,7 +45,7 @@ def bulk_insert_execute(table, row, is_random):
 
             query_assembly(data, record)
         query.append(f'{", ".join(record)}')
-        count = cursor.execute(''.join(query))
+        cursor.execute(''.join(query))
         conn.commit()
     except Exception as e:
         conn.rollback()
