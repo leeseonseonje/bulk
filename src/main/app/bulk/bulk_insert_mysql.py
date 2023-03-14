@@ -20,10 +20,10 @@ def bulk_insert_mysql(table, row, is_random):
             bulk_insert_execute(table, remaining, is_random)
         executor.shutdown(wait=True)
 
-        end = time.time() - start
-        print(f'working time: {datetime.timedelta(seconds=end)}')
     else:
         bulk_insert_execute(table, row, is_random)
+    end = time.time() - start
+    print(f'working time: {datetime.timedelta(seconds=end)}')
 
 
 def bulk_insert_execute(table, row, is_random):
@@ -48,9 +48,9 @@ def bulk_insert_execute(table, row, is_random):
         query.append(f'{", ".join(record)}')
         count = cursor.execute(''.join(query))
         conn.commit()
-    except:
+    except Exception as e:
         conn.rollback()
-        print('rollback')
+        print(e)
     finally:
         conn.close()
 
