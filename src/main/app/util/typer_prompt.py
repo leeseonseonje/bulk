@@ -20,3 +20,12 @@ def entered_db_information(host='', port='', db='', user='', password=''):
     else:
         return typer.confirm(f'is your database correct?\n'
                       f'db: {db}')
+
+
+
+
+
+
+
+
+

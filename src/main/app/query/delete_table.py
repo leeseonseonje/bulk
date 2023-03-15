@@ -14,13 +14,23 @@ def delete_table(table):
     index = -(limit - 1)
 
     executor = ThreadPoolExecutor(10)
-    for _ in range(100):
+    loop = 0
+    while True:
         index += limit
-        executor.submit(delete, table, index, limit, pk_column_name, pk)
+        loop += 1
+
+        if loop % 10 == 0:
+            delete_count = executor.submit(delete, table, index, limit, pk_column_name, pk)
+
+            if delete_count.result() == 0:
+                break
+
+        else:
+            executor.submit(delete, table, index, limit, pk_column_name, pk)
 
     executor.shutdown(wait=True)
     end = time.time() - start
-    print(f'working time: {datetime.timedelta(seconds=end)}')
+    print(f'delete time: {datetime.timedelta(seconds=end)}')
 
 
 def get_first_pk(table):
@@ -43,17 +53,19 @@ def get_first_pk(table):
 
 def delete(table, index, limit, pk_column_name, pk):
     conn = get_connection()
-
     cursor = conn.cursor()
 
     try:
         next_pk = pk + (index - 1)
         limit += next_pk
-        cursor.execute(f'delete from {table} where {pk_column_name} between {next_pk} and {limit}')
-
+        count = cursor.execute(f'delete from {table} where {pk_column_name} between {next_pk} and {limit}')
         conn.commit()
+
+        return count
+
     except Exception as e:
         conn.rollback()
         print(e)
+
     finally:
         conn.close()
