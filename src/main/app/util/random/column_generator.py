@@ -1,6 +1,8 @@
 import datetime
 import random
 
+set = set()
+
 
 def get_integer(is_random):
     if is_random:
@@ -56,22 +58,24 @@ def get_random_string(length):
 
 
 def get_date(is_random):
-    if is_random:
-        return datetime.datetime(year=random.randrange(1, 10000),
-                                 month=random.randrange(1, 13),
-                                 day=random.randrange(1, 29),
-                                 hour=random.randrange(0, 23),
-                                 minute=random.randrange(0, 60),
-                                 second=random.randrange(0, 60))
-    else:
-        return datetime.datetime(year=9999, month=12, day=1, hour=12, minute=10, second=10)
+    # if is_random:
+    return datetime.datetime(year=random.randrange(1970, 2030),
+                             month=random.randrange(1, 13),
+                             day=random.randrange(1, 29),
+                             hour=random.randrange(0, 23),
+                             minute=random.randrange(0, 60),
+                             second=random.randrange(0, 60))
+
+
+# else:
+#     return datetime.datetime(year=9999, month=12, day=1, hour=12, minute=10, second=10)
 
 
 def get_time(is_random):
     if is_random:
         return datetime.time(hour=random.randrange(0, 23),
-                                 minute=random.randrange(0, 60),
-                                 second=random.randrange(0, 60))
+                             minute=random.randrange(0, 60),
+                             second=random.randrange(0, 60))
     else:
         return datetime.time(hour=12, minute=10, second=10)
 
