@@ -52,11 +52,13 @@ working time: 0:00:01.796998
 
 #### --rm
   - Insert after deleting existing rows
-  ex) python main.py bulk 'table' --row 100000 --rm
+  
+  ___ex) python main.py bulk 'table' --row 100000 --rm___
 
 #### --ran
   - Generate random values (guaranteed unique x)
-  ex) python main.py bulk 'table' --row 100000 --ran
+  
+  ___ex) python main.py bulk 'table' --row 100000 --ran___
   
 # Caution
 
