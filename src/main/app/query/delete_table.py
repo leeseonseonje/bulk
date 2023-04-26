@@ -40,8 +40,11 @@ def get_first_pk(table):
     try:
         cursor.execute(f'select * from {table} limit {1}')
         row = cursor.fetchone()
-        pk_column_name = cursor.description[0][0]
+        print(row)
+        pk_column_name = cursor.description
+        print(pk_column_name)
         pk = row[0]
+        print(pk)
         return pk_column_name, pk
 
     except Exception as e:
@@ -57,7 +60,9 @@ def delete(table, index, limit, pk_column_name, pk):
 
     try:
         next_pk = pk + (index - 1)
+        print(next_pk)
         limit += next_pk
+
         count = cursor.execute(f'delete from {table} where {pk_column_name} between {next_pk} and {limit}')
         conn.commit()
 
@@ -65,7 +70,7 @@ def delete(table, index, limit, pk_column_name, pk):
 
     except Exception as e:
         conn.rollback()
-        print(e)
+        # print(e)
 
     finally:
         conn.close()

@@ -9,20 +9,28 @@ def bulk_insert_mysql(table, row, is_random):
     start = time.time()
     divide = 10000
     if row > divide:
-        loop = row / divide
-        remaining = row % divide
+        loop, remaining = loop_count(divide, row)
 
-        executor = ThreadPoolExecutor(10)
-        for i in range(int(loop)):
-            executor.submit(bulk_insert_execute, table, divide, is_random)
-        if remaining:
-            bulk_insert_execute(table, remaining, is_random)
-        executor.shutdown(wait=True)
-
+        thread_execute(divide, is_random, loop, remaining, table)
     else:
         bulk_insert_execute(table, row, is_random)
     end = time.time() - start
     print(f'working time: {datetime.timedelta(seconds=end)}')
+
+
+def loop_count(divide, row):
+    loop = row / divide
+    remaining = row % divide
+    return loop, remaining
+
+
+def thread_execute(divide, is_random, loop, remaining, table):
+    executor = ThreadPoolExecutor(10)
+    for i in range(int(loop)):
+        executor.submit(bulk_insert_execute, table, divide, is_random)
+    if remaining:
+        bulk_insert_execute(table, remaining, is_random)
+    executor.shutdown(wait=True)
 
 
 def bulk_insert_execute(table, row, is_random):
