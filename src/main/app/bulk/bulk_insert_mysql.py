@@ -62,15 +62,6 @@ def bulk_insert_execute(table, row, is_random):
         conn.close()
 
 
-def query_completion(query, record):
-    query.append(f'{", ".join(record)}')
-    return ''.join(query)
-
-
-def column_values_concatenate(column_value, data):
-    data.append(f"'{column_value}'")
-
-
 def declare_insert_query(cursor, query, table):
     columns = []
     query.append(f'insert into {table} (')
@@ -90,6 +81,15 @@ def is_not_auto_increment(column):
         return False
 
 
+def column_values_concatenate(column_value, data):
+    data.append(f"'{column_value}'")
+
+
 def query_assembly(data, record):
     record.append(f'({", ".join(data)})')
     data.clear()
+
+
+def query_completion(query, record):
+    query.append(f'{", ".join(record)}')
+    return ''.join(query)
