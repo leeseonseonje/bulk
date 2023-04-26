@@ -49,17 +49,26 @@ def bulk_insert_execute(table, row, is_random):
                 data_type = column[1]
                 if is_not_auto_increment(column[5]):
                     column_value = DataType.type_checking_and_value_generate(data_type, is_random)
-                    data.append(f"'{column_value}'")
+                    column_values_concatenate(column_value, data)
 
             query_assembly(data, record)
-        query.append(f'{", ".join(record)}')
-        cursor.execute(''.join(query))
+        bulk_insert_query = query_completion(query, record)
+        cursor.execute(bulk_insert_query)
         conn.commit()
     except Exception as e:
         conn.rollback()
         print(e)
     finally:
         conn.close()
+
+
+def query_completion(query, record):
+    query.append(f'{", ".join(record)}')
+    return ''.join(query)
+
+
+def column_values_concatenate(column_value, data):
+    data.append(f"'{column_value}'")
 
 
 def declare_insert_query(cursor, query, table):
