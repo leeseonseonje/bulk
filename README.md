@@ -11,56 +11,55 @@ port: 3306
 user: root
 password: root
 db: cli_test
-is your database correct?
-url: localhost:3306/cli_test
-id/pw: root/root
- [y/N]: y
 connect success!!
 ```
 
 ## 2. db connection load
   - python main.py load
- ```
+```
  >>> python main.py load
- ['mysql', 'localhost', '3306', 'root', 'root', 'cli_test']
- ```
+ dbms: mysql
+ host/port: localhost/3306
+ user/password: root/root
+ db: cli_test
+```
  
 ## 3. sql
   - python main.py sql 'sql'
 ```
->>> typer main.py run sql 'select * from test'
-(1439415, 668448884, 'lmhlx5inay84e5w87lxe', datetime.date(7846, 5, 28))
-(1439416, 931464901, '1x1d475u0t1a3qpdhd6e', datetime.date(967, 6, 22))
-(1439417, 1548848311, 'cty2kj18rl9oi7if4e3h', datetime.date(7217, 8, 12))
-(1439418, 769572117, 'spvce7xx736i7yrle8qg', datetime.date(7974, 6, 21))
-(1439419, 364382520, 'vghrbs7duwuvx4p02j0j', datetime.date(2401, 6, 13))
+>>> typer main.py run sql 'select * from test order by id desc limit 10'
+count: 10
+(377632490, 1907334006, 'jixv7pw6matwxuijtudq', datetime.date(1991, 1, 14))
+(377632489, 394097271, 'rkmvoejjrmpjn2ynaiu5', datetime.date(1987, 12, 16))
+(377632488, 978318389, 'xzbdwn2j8dopbplm6mf8', datetime.date(1979, 1, 13))
+(377632487, 802074465, 'nxp7nwh0ewvc9ec9005g', datetime.date(1985, 8, 13))
+(377632486, 1899704016, 'jvrhmtryzseijnc6605l', datetime.date(1987, 1, 17))
+(377632485, 554525884, '4r6mienmorq240on0bcu', datetime.date(1989, 10, 1))
+(377632484, 552641192,'wglq3gxpn2kftrokpr3x', datetime.date(1994, 10, 4))
+(377632483, 1831062817, '588oxop57rxjtt2a7hmx', datetime.date(2001, 8, 2))
+(377632482, 541219314, 'ae1os464262bk4pknhv3', datetime.date(2001, 2, 15))
+(377632481, 1839120451, 'vvbwc70ygn7fsx8ql9w3', datetime.date(1992, 4, 22))
 ```
 
 ## 4. bulk insert
   - python main.py bulk 'table' --row 'insert row (default 1)'
 ```
->>> python main.py bulk test --row 10000
-insert rows: 10000
+>>> python main.py bulk test --row 100000
+working time: 0:00:01.796998
 ```
 
-### 4-1. bulk insert --rm option
-  - python main.py bulk 'table' --row 'insert row' --rm
-```
->>> python main.py bulk test --row 10000 --rm
-delete rows: 10000
-insert rows: 10000
-```
+### 4-1. options
 
-# bulk-insert records check
-```
->>> python main.py bulk test --row 10000 --rm
-delete rows: 10000
-insert rows: 10000
+#### --rm
+  - Insert after deleting existing rows
+  
+  ___ex) python main.py bulk 'table' --row 100000 --rm___
 
->>> python main.py sql 'select * from test limit 5'
-```
-<img width="599" alt="스크린샷 2023-02-23 오전 3 10 55" src="https://user-images.githubusercontent.com/72899707/220718366-e8d10320-b903-40a4-966e-be2ba86d5e0b.png">
-
+#### --ran
+  - Generate random values (guaranteed unique x)
+  
+  ___ex) python main.py bulk 'table' --row 100000 --ran___
+  
 # Caution
 
 Supported DB: mysql, mariadb __(preparing postgresql)__
