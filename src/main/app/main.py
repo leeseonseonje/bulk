@@ -8,7 +8,6 @@ from src.main.app.init.db_init import db_init
 from src.main.app.repository.pickle_db_info_repository import load_db_info
 from src.main.app.query.query_execute import __sql__
 from src.main.app.bulk.bulk_insert import BulkInsert
-from src.main.app.query.delete_table import delete_table
 import typer
 
 app = typer.Typer()
@@ -36,10 +35,7 @@ def sql(query: str):
 @app.command()
 def bulk(table: str,
          row: int = typer.Option(1),
-         rm: bool = typer.Option(False),
          ran: bool = typer.Option(False)):
-    if rm:
-        delete_table(table)
     insert = BulkInsert(table, row, ran)
     getattr(insert, load_db_info().dbms)()
 
