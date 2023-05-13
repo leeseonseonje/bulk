@@ -36,10 +36,7 @@ def sql(query: str):
 @app.command()
 def bulk(table: str,
          row: int = typer.Option(1),
-         rm: bool = typer.Option(False),
          ran: bool = typer.Option(False)):
-    if rm:
-        delete_table(table)
     insert = BulkInsert(table, row, ran)
     getattr(insert, load_db_info().dbms)()
 
