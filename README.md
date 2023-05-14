@@ -58,5 +58,3 @@ working time: 0:00:01.796998
 # Caution
 
 Supported DB: mysql, mariadb __(preparing postgresql)__
-
-pk: pk only supports auto_increment.
