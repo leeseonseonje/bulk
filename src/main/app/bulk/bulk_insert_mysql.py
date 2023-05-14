@@ -43,13 +43,15 @@ def bulk_insert_execute(table, row, is_random):
         data = []
         record = []
         columns = declare_insert_query(cursor, query, table)
-
         for i in range(row):
             for column in columns:
                 data_type = column[1]
-                if is_not_auto_increment(column[5]):
-                    column_value = DataType.type_checking_and_value_generate(data_type, is_random)
-                    column_values_concatenate(column_value, data)
+                if is_not_auto_increment(column):
+                    if is_pk(column):
+                        column_values_concatenate(get_pk(), data)
+                    else:
+                        column_value = DataType.type_checking_and_value_generate(data_type, is_random)
+                        column_values_concatenate(column_value, data)
 
             query_assembly(data, record)
         bulk_insert_query = query_completion(query, record)
@@ -68,17 +70,22 @@ def declare_insert_query(cursor, query, table):
     cursor.execute('desc ' + table)
     columns_info = cursor.fetchall()
     for column in columns_info:
-        if is_not_auto_increment(column[5]):
+        if is_not_auto_increment(column):
             columns.append(column[0])
     query.append(f'{", ".join(columns)}) values ')
     return columns_info
 
 
 def is_not_auto_increment(column):
-    if not column:
+    if not column[5]:
         return True
-    else:
-        return False
+    return False
+
+
+def is_pk(column):
+    if column[3]:
+        return True
+    return False
 
 
 def column_values_concatenate(column_value, data):

@@ -1,8 +1,11 @@
 import datetime
 import random
+import uuid
 
 set = set()
 
+def get_pk():
+    return uuid.uuid4()
 
 def get_integer(is_random):
     if is_random:

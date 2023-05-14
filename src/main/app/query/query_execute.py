@@ -7,13 +7,15 @@ def __sql__(query: str):
     cursor = conn.cursor()
 
     try:
-        count = cursor.execute(query)
+        count = cursor.execute("desc push_token")
         conn.commit()
         records = cursor.fetchall()
-        print(f'count: {count}')
-        if records:
-            for r in records:
-                print(f'{r}')
+        print(records)
+        print(records[4])
+        # print(f'count: {count}')
+        # if records:
+        #     for r in records:
+        #         print(f'{r}')
     except:
         conn.rollback()
         print('rollback')
