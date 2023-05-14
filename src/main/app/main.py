@@ -8,7 +8,6 @@ from src.main.app.init.db_init import db_init
 from src.main.app.repository.pickle_db_info_repository import load_db_info
 from src.main.app.query.query_execute import __sql__
 from src.main.app.bulk.bulk_insert import BulkInsert
-from src.main.app.query.delete_table import delete_table
 import typer
 
 app = typer.Typer()
