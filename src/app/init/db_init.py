@@ -1,6 +1,6 @@
-from src.main.app.init.db_connection import get_connection
-from src.main.app.util.typer_prompt import *
-from src.main.app.repository.pickle_db_info_repository import save_db_info
+from src.app.init.db_connection import get_connection
+from src.app.util.typer_prompt import *
+from src.app.repository.pickle_db_info_repository import save_db_info
 
 
 def db_init(dbms):

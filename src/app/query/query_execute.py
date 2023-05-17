@@ -1,4 +1,4 @@
-from src.main.app.init.db_connection import get_connection
+from src.app.init.db_connection import get_connection
 
 
 def __sql__(query: str):

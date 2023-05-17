@@ -1,6 +1,6 @@
 from enum import Enum
 
-from src.main.app.util.random.column_generator import *
+from src.app.util.random.column_generator import *
 
 
 class DataType(Enum):

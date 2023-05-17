@@ -1,7 +1,7 @@
 import pickle
 from pathlib import Path
 
-path = str(Path(__file__).parent.parent.parent.parent.parent) + '/db.pickle'
+path = str(Path(__file__).parent.parent.parent.parent) + '/db.pickle'
 
 
 def save_db_info(db_connection):

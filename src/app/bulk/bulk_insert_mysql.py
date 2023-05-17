@@ -1,8 +1,8 @@
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-from src.main.app.bulk.db_data_type import *
-from src.main.app.init.db_connection import get_connection
+from src.app.bulk.db_data_type import *
+from src.app.init.db_connection import get_connection
 
 
 def bulk_insert_mysql(table, row, is_random):

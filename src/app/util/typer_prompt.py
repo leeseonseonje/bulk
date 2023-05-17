@@ -1,6 +1,6 @@
 import typer
 
-from src.main.app.init.db_connection_dto import DBConnectionDto
+from src.app.init.db_connection_dto import DBConnectionDto
 
 
 def host_port_user_password_db(dbms):

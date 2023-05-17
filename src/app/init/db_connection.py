@@ -3,8 +3,8 @@ import sys
 import pymysql
 import psycopg2
 
-from src.main.app.repository.pickle_db_info_repository import load_db_info
-from src.main.app.init.db_connection_dto import DBConnectionDto
+from src.app.repository.pickle_db_info_repository import load_db_info
+from src.app.init.db_connection_dto import DBConnectionDto
 
 
 class DBConnection:

@@ -2,12 +2,12 @@ import sys
 from pathlib import Path
 
 
-sys.path.append(str(Path(__file__).parent.parent.parent.parent))
-from src.main.app.init.db_connection_dto import DBConnectionDto
-from src.main.app.init.db_init import db_init
-from src.main.app.repository.pickle_db_info_repository import load_db_info
-from src.main.app.query.query_execute import __sql__
-from src.main.app.bulk.bulk_insert import BulkInsert
+sys.path.append(str(Path(__file__).parent.parent.parent))
+from src.app.init.db_connection_dto import DBConnectionDto
+from src.app.init.db_init import db_init
+from src.app.repository.pickle_db_info_repository import load_db_info
+from src.app.query.query_execute import __sql__
+from src.app.bulk.bulk_insert import BulkInsert
 import typer
 
 app = typer.Typer()

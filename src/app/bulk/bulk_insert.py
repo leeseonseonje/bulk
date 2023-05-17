@@ -1,4 +1,4 @@
-from src.main.app.bulk.bulk_insert_mysql import bulk_insert_mysql
+from src.app.bulk.bulk_insert_mysql import bulk_insert_mysql
 
 
 class BulkInsert:
