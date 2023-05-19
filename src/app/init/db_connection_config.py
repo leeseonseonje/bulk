@@ -1,4 +1,4 @@
-class DBConnectionDto:
+class DBConnectionConfig:
     def __init__(self, dbms, host, port, user, password, db):
         self.dbms = dbms
         self.host = host

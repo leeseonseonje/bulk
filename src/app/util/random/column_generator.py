@@ -4,8 +4,10 @@ import uuid
 
 set = set()
 
+
 def get_pk():
     return uuid.uuid4()
+
 
 def get_integer(is_random):
     if is_random:
@@ -68,10 +70,6 @@ def get_date(is_random):
                              hour=random.randrange(0, 23),
                              minute=random.randrange(0, 60),
                              second=random.randrange(0, 60))
-
-
-# else:
-#     return datetime.datetime(year=9999, month=12, day=1, hour=12, minute=10, second=10)
 
 
 def get_time(is_random):

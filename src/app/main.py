@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from src.app.init.db_connection_dto import DBConnectionDto
+from src.app.init.db_connection_config import DBConnectionConfig
 from src.app.init.db_init import db_init
 from src.app.repository.pickle_db_info_repository import load_db_info
 from src.app.query.query_execute import __sql__
@@ -20,7 +20,7 @@ def init(dbms: str = typer.Argument('mysql')):
 
 @app.command()
 def load():
-    db_info: DBConnectionDto = load_db_info()
+    db_info: DBConnectionConfig = load_db_info()
     print(f'dbms: {db_info.dbms}')
     print(f'host/port: {db_info.host}/{db_info.port}')
     print(f'user/password: {db_info.user}/{db_info.password}')

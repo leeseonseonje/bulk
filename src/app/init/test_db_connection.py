@@ -1,4 +1,4 @@
-from src.main.app.init.db_connection import DBConnection
+from src.app.init.db_connection import DBConnection
 import pymysql
 import psycopg2
 

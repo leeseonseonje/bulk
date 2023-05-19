@@ -4,7 +4,7 @@ import pymysql
 import psycopg2
 
 from src.app.repository.pickle_db_info_repository import load_db_info
-from src.app.init.db_connection_dto import DBConnectionDto
+from src.app.init.db_connection_config import DBConnectionConfig
 
 
 class DBConnection:
@@ -34,7 +34,7 @@ class DBConnection:
 
 def get_connection():
     try:
-        db_info: DBConnectionDto = load_db_info()
+        db_info: DBConnectionConfig = load_db_info()
         connect_db = DBConnection(db_info.host, db_info.port, db_info.user, db_info.password, db_info.db)
         return getattr(connect_db, db_info.dbms)()
     except:

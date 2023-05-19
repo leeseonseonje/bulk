@@ -1,6 +1,6 @@
 import typer
 
-from src.app.init.db_connection_dto import DBConnectionDto
+from src.app.init.db_connection_config import DBConnectionConfig
 
 
 def host_port_user_password_db(dbms):
@@ -9,7 +9,7 @@ def host_port_user_password_db(dbms):
     user = typer.prompt('user')
     password = typer.prompt('password')
     db = typer.prompt('db')
-    return DBConnectionDto(dbms, host, port, user, password, db)
+    return DBConnectionConfig(dbms, host, port, user, password, db)
 
 
 def entered_db_information(host='', port='', db='', user='', password=''):

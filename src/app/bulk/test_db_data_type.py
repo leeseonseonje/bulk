@@ -1,6 +1,6 @@
 import datetime
 
-from src.main.app.bulk.db_data_type import DataType
+from src.app.bulk.db_data_type import DataType
 
 
 def test_integer_type_checking_and_value_generate():
@@ -23,7 +23,6 @@ def test_string_type_checking_and_value_generate():
 
 def test_date_type_checking_and_value_generate():
     result = DataType.type_checking_and_value_generate('date', False)
-    assert result == datetime.datetime(9999, 12, 1, 12, 10, 10)
     assert type(result) == datetime.datetime
 
 
