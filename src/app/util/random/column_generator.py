@@ -2,8 +2,6 @@ import datetime
 import random
 import uuid
 
-set = set()
-
 
 def get_pk():
     return uuid.uuid4()
