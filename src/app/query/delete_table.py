@@ -1,8 +1,9 @@
 import datetime
 import time
 
-from src.main.app.init.db_connection import get_connection
 from concurrent.futures import ThreadPoolExecutor
+
+from src.app.init.db_connection import get_connection
 
 
 def delete_table(table):
@@ -70,7 +71,7 @@ def delete(table, index, limit, pk_column_name, pk):
 
     except Exception as e:
         conn.rollback()
-        # print(e)
+        print(e)
 
     finally:
         conn.close()
